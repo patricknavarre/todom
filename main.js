@@ -8,68 +8,81 @@
 
 // And now: code away.
 
-
-
 // A function that, given a todo object, adds an item to our todo list array.
 
+let todoList = ['thing1', 'thing2', 'stuff'];
 
+const addTodo = (userInput) => {
+  const todo = {
+    text: userInput,
+    priority: 2,
+    isComplete: false,
+  };
+  todoList.push(todo);
+};
+// addTodo("lotsofstuff")
 
 // A function that removes an item at a given index from our todo list array. You can use splice!
 
+const removeTodo = (num) => {
+  todoList.splice(num, 1);
+};
+// removeTodo();
+
 
 // Given a todo object, put it on the DOM. This is a pretty big function, so we'll walk through the different parts of it.
-const printTodo = function(todo) {
+const printTodo = function (todo) {
   // Use `document.createElement` to make an <li>, and set its text (preferably using `.innerText`) to be our given object's text field. Check out what a todo object looks like in `todos.js` if you need to!
-
-
+  const li = document.createElement('li');
+  li.innerText = todo.text;
 
   // Query the ol and save it in a variable.
-
-
+  const ol = document.querySelector('ol')
 
   // Append the li we made to the ul as the last child using `.appendChild`. If this isn't working for you, check what is being appended to what!
-
-
+  ol.appendChild(li);
 
   // Give our new li a `todo-item` class using `classList`. This will allow us to style it later if we want.
 
-
-
+  li.classList = 'todo-item';
+  
   // Give our new li an id that is the object's id. This is so that we have a matching relationship between todo _html elements_ and their corresponding _array objects_. Now we'll be able to find the corresponding array object when they click to toggle the completeness on a DOM element.
 
-
-
+  li.id = todo.id
   // Give the li a `complete` class if the todo object indicates it was complete already. (Again, check the `todos.js` to see what the objects look like!)
 
-
-
+  li.classList = 'complete';
   // Give the <p> with the todo's text in it an event listener to toggle that todo's completeness.
+
   // This is quite a challenge, so feel free to come back to this one at the end!
   // You'll want to add an event listener to the `li` you just made, and in that event listener function, toggle its completeness on both the DOM (using `classList.toggle`) and in our global array (toggling its completeness property).
   // The hard part will be finding it on the DOM and finding it in our array. We can tell what `li` was clicked using the `event` property passed in to the event listener, and we can tell what object it goes to using the DOM element's id that we added above.
-
-
-}
-
+};
 
 // A function that print ALL todos. It should loop through our todos array and call the above print-one-todo function on each one.
 
+const printAll = () => {
+  for (const todo of todos) {
+    printTodo(todo)
+  }
+}
 
 
 // Now here in the global code, call the above function, so our todos array gets printed out on page load (which is when global code is run). This is the only time we're calling a function ourselves; the rest is event listeners and helper functions that run when the user interacts with the DOM!
-
-
-
+printAll();
 
 // A function that clears all todos from the DOM. This is a great helper function for refreshing our todos.
+const removeAll = () => {
+  const todos = document.querySelectorAll('.todo-list')
+  for (todo of todos) {
+    todo.remove()
+  }
+}
+// removeAll();
+console.log(todoList)
 // Test it in the console and see if your list disappears!
 
-
-
 // Refresh our page by calling each of the two above functions. Since printing all todos onto the DOM is based on our todos array, if we make a change to our todos array, we can simply call this function, which will make our DOM match our todos array by simply clearing the page and repopulating it according to our todos' new state.
-
-
-
 
 /*
 
@@ -82,14 +95,10 @@ Let's wire it all together. Add an event listener for the add todo button that w
 
 */
 
-
-
 /* 
 
 Wire up your clear todos button. Give it an event listener that clears all todos from the DOM (we have a function for that!) and removes all todo objects from the todos array as well.
 
 */
-
-
 
 // And you're DONE with the best interface we've written yet for a todos app!
